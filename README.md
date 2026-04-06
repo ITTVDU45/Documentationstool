@@ -35,6 +35,36 @@ Verfügbare Variablen:
 
 - `PUPPETEER_EXECUTABLE_PATH` (optional): eigener Chromium-Pfad für bestimmte Hosting-Umgebungen
 - `NEXT_PUBLIC_APP_URL` (optional): Basis-URL für `metadataBase`
+- `NEXT_PUBLIC_PRESENTATION_APP_URL` (optional): Basis-URL der separaten **presentation-ai**-Instanz (z. B. `http://localhost:3001`). Ohne diese Variable sind die Buttons „Präsentation öffnen“ deaktiviert; die Dokumentation funktioniert weiterhin.
+
+### Präsentation (presentation-ai)
+
+Die Präsentationsfunktion nutzt das Open-Source-Projekt [presentation-ai](https://github.com/allweonedev/presentation-ai) (MIT). Es ist **kein** Monolith-Merge: die App läuft **eigenständig** mit eigenem Stack (u. a. PostgreSQL, Prisma, NextAuth).
+
+**Lokal neben diesem Repo:**
+
+```bash
+git clone https://github.com/allweonedev/presentation-ai.git
+cd presentation-ai
+# Abhängigkeiten & .env laut Upstream-README (pnpm, Datenbank, OAuth, …)
+pnpm install
+pnpm dev   # z. B. Port 3001
+```
+
+In diesem Projekt in `.env.local` setzen:
+
+```bash
+NEXT_PUBLIC_PRESENTATION_APP_URL=http://localhost:3001
+```
+
+Optional kann `presentation-ai` als Git-Submodule unter z. B. `external/presentation-ai` liegen – die URL zeigt trotzdem auf den laufenden Dev-Server.
+
+**Routing in dieser App:**
+
+- `/` – Dashboard (Tabs Dokumentation | Präsentation)
+- `/project/new` – neues Projekt (Kontaktmaske)
+- `/project/[id]` – Projekthub (Dokumentation oder Präsentation)
+- `/project/[id]/documentation` – Sektionsformular
 
 ## Build & Quality
 
@@ -49,7 +79,11 @@ npm run build
 app/
   (docs)/
     layout.tsx           // FormProvider + Draft-Kontext
-    page.tsx             // Hauptformular
+    page.tsx             // Dashboard (Tabs)
+    project/
+      new/page.tsx       // Projekt anlegen
+      [id]/page.tsx      // Projekthub
+      [id]/documentation/page.tsx  // Formular
     preview/page.tsx     // Dokumentvorschau
   api/generate-pdf/route.ts
   layout.tsx

@@ -11,7 +11,9 @@ import { cn } from "@/lib/utils"
 
 export default function PreviewPage() {
   const { data, activeProjectId } = useDocumentationForm()
-  const backToFormHref = activeProjectId ? `/project/${activeProjectId}` : "/"
+  const backToFormHref = activeProjectId
+    ? `/project/${activeProjectId}/documentation`
+    : "/"
 
   if (!data) {
     return (

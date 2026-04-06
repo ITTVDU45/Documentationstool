@@ -8,11 +8,11 @@ import { useDocumentationForm } from "@/components/form/documentation-form-provi
 import { buttonVariants } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 
-interface ProjectDetailPageProps {
+interface ProjectDocumentationPageProps {
   projectId: string
 }
 
-export function ProjectDetailPage({ projectId }: ProjectDetailPageProps) {
+export function ProjectDocumentationPage({ projectId }: ProjectDocumentationPageProps) {
   const { projects, activeProjectId, selectProject } = useDocumentationForm()
 
   useEffect(() => {

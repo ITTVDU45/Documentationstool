@@ -29,6 +29,7 @@ function getSectionCompletionCount(values: ProjectDocumentationInput) {
 
 export function ProjectDocumentationForm() {
   const {
+    activeProjectId,
     activeProjectName,
     data,
     setData,
@@ -119,10 +120,20 @@ export function ProjectDocumentationForm() {
           <p className="mt-1 text-sm font-medium">
             Aktives Projekt: {activeProjectName ?? "Unbenanntes Projekt"}
           </p>
-          <Link href="/" className={cn(buttonVariants({ variant: "outline", size: "sm" }), "mt-3 inline-flex")}>
-            <ArrowLeft className="mr-2 h-4 w-4" />
-            Zur Projektübersicht
-          </Link>
+          {activeProjectId ? (
+            <Link
+              href={`/project/${activeProjectId}`}
+              className={cn(buttonVariants({ variant: "outline", size: "sm" }), "mt-3 inline-flex")}
+            >
+              <ArrowLeft className="mr-2 h-4 w-4" />
+              Zum Projekthub
+            </Link>
+          ) : (
+            <Link href="/" className={cn(buttonVariants({ variant: "outline", size: "sm" }), "mt-3 inline-flex")}>
+              <ArrowLeft className="mr-2 h-4 w-4" />
+              Zum Dashboard
+            </Link>
+          )}
         </div>
         <TopProgress value={progressValue} completedSections={completionCount} totalSections={sectionsMeta.length} />
         <div className="flex flex-wrap items-center gap-2">

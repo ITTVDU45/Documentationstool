@@ -1,4 +1,4 @@
-import { ProjectDetailPage } from "@/components/form/project-detail-page"
+import { ProjectHubPage } from "@/components/form/project-hub-page"
 
 interface ProjectIdPageProps {
   params: Promise<{ id: string }>
@@ -6,5 +6,5 @@ interface ProjectIdPageProps {
 
 export default async function ProjectIdPage({ params }: ProjectIdPageProps) {
   const { id } = await params
-  return <ProjectDetailPage projectId={id} />
+  return <ProjectHubPage projectId={id} />
 }
